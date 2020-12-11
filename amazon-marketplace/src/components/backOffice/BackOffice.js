@@ -47,6 +47,7 @@ class BackOffice extends React.Component {
       this.setState({ status: result });
     }
   };
+  editProduct = () => {};
   putProduct = async (e) => {
     e.preventDefault();
     let result = await putFunction("/products", this.state.currentProduct);
@@ -134,7 +135,7 @@ class BackOffice extends React.Component {
         </Form>
 
         <div className='mt-5'>
-          <ProductTable deleteProduct={this.deleteProducts} products={this.state.products} />
+          <ProductTable deleteProduct={this.deleteProducts} editProduct={this.editProduct} products={this.state.products} />
         </div>
       </Container>
     );
