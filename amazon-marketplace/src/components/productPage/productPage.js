@@ -7,7 +7,7 @@ import { withRouter } from "react-router-dom"
 class ProductPage extends React.Component {
   state = {
     reviews: [],
-    product: [],
+    product: {},
     loading: true,
     status: "",
     currentReview: {
@@ -24,7 +24,7 @@ class ProductPage extends React.Component {
 
     let product = await getFunction("/products/" + id);
     if (product) {
-      this.setState({ product, loading: false });
+      this.setState({ product: product[0], loading: false });
     } else {
       this.setState({ status: "No product" });
     }
@@ -32,7 +32,7 @@ class ProductPage extends React.Component {
   getReviews = async (id) => {
     let reviews = await getFunction("/reviews/" + id);
     if (reviews.length > 0) {
-      this.setState({ reviews, loading: false });
+      this.setState({ reviews: reviews, loading: false });
     } else {
       this.setState({ status: "No reviews" });
     }
@@ -71,10 +71,9 @@ class ProductPage extends React.Component {
       image,
       price,
       category,
-    } = this.state.product;
-    const { comment,
-      rate,
-    } = this.state.reviews;
+    } = this.state.product
+    console.log(this.state.reviews)
+
     return (
       <Container>
         <div>
@@ -100,12 +99,21 @@ class ProductPage extends React.Component {
                     <small className="text-muted">${price}</small><br></br>
                     <small>{category}</small>
                   </Card.Footer>
-                </Card><Card className="mt-1">
-                  <Card.Header>Comments</Card.Header>
-                  <ListGroup variant="flush">
-                    <ListGroup.Item></ListGroup.Item>
-                  </ListGroup>
                 </Card>
+                {
+                  this.state.reviews.map((reviews) => {
+                    const { comment,
+                      rate,
+                    } = reviews;
+                    <Card className="mt-1">
+                      <Card.Header>Comments</Card.Header>
+                      <ListGroup variant="flush">
+                        <ListGroup.Item>{rate}{comment}</ListGroup.Item>
+                      </ListGroup>
+                    </Card>
+                  }
+                  )}
+
               </Card.Body>
             </div></Container>
 
@@ -113,11 +121,7 @@ class ProductPage extends React.Component {
         </div>
 
 
-        {
-          this.state.reviews.map((review) => {
 
-          }
-          )}
       </Container>
     );
 
