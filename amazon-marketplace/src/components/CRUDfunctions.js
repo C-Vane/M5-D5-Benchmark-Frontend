@@ -10,6 +10,10 @@ const getFunction = async (endp) => {
     console.log(error);
   }
 };
+
+
+
+
 const postFunction = async (endp, data) => {
   try {
     const response = await fetch("http://localhost:3001" + endp, {

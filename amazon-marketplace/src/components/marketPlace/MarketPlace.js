@@ -1,5 +1,9 @@
 import React from "react";
+import { Button, Card, Col, Container, Nav, Row } from "react-bootstrap";
 import { getFunction } from "../CRUDfunctions";
+import uniqid from "uniqid";
+import { Link, Router } from "react-router-dom";
+
 class MarketPlace extends React.Component {
   state = {
     category: "",
@@ -18,7 +22,49 @@ class MarketPlace extends React.Component {
     }
   };
   render() {
-    return <div></div>;
+    return (
+      <Container>
+        <Row>
+          {this.state.products.length > 0 &&
+            this.state.products.map((product) => {
+              const {
+                name,
+                description,
+                brand,
+                image,
+                price,
+                category,
+              } = product;
+              return (
+                <Col className="mt-5 mb-5" xs={3} key={uniqid()} id="name-col">
+                  <Card border="warning">
+                    
+                   <Link to={"/market/"+product.ID}><Card.Img className="w-100" variant="top" src={image} /></Link>
+                   <Card.Body>
+                    <Card.Title className="title">
+                      {name}
+                    </Card.Title>
+                    
+                    <Card.Text>
+                      <small className="text-muted">description:</small> <p>{description}</p>
+                    </Card.Text>
+                    <small className="d-flex justify-content-left">
+                      Brand: {brand}
+                    </small>
+                    </Card.Body>
+                    <Button variant="warning" size="sm">add to cart</Button>
+                    
+                    <Card.Footer style={{maxHeight: "60px"}}>
+              <small className="text-muted">${price}</small><br></br>
+              <small>{category}</small>
+                    </Card.Footer>
+                  </Card>{" "}
+                </Col>
+              );
+            })}
+        </Row>
+      </Container>
+    );
   }
 }
 
