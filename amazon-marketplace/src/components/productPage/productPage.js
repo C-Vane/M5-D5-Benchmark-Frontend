@@ -1,4 +1,4 @@
-import React from "react";
+/* import React from "react";
 import { getFunction, putFunction, postFunction, deleteFunction } from "../CRUDfunctions";
 
 class ProductPage extends React.Component {
@@ -64,4 +64,4 @@ class ProductPage extends React.Component {
   }
 }
 
-export default ProductPage;
+export default ProductPage; */
